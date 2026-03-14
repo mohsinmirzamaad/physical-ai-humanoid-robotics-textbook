@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mohsinmirzamaad.github.io/physical-ai-humanoid-robotics-textbook/blog</id>
-    <title>My Site Blog</title>
+    <title>Physical AI &amp; Humanoid Robotics Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mohsinmirzamaad.github.io/physical-ai-humanoid-robotics-textbook/blog"/>
-    <subtitle>My Site Blog</subtitle>
+    <subtitle>Physical AI &amp; Humanoid Robotics Blog</subtitle>
     <icon>https://mohsinmirzamaad.github.io/physical-ai-humanoid-robotics-textbook/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
