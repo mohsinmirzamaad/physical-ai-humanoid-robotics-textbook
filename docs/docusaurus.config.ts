@@ -26,6 +26,10 @@ const config: Config = {
   projectName: 'physical-ai-humanoid-robotics-textbook', // Usually your repo name.
   trailingSlash: false,
 
+  customFields: {
+    chatbotApiUrl: process.env.CHATBOT_API_URL ?? 'http://localhost:8001/chat',
+  },
+
   onBrokenLinks: 'throw',
 
   // Even if you don't use internationalization, you can use this field to set

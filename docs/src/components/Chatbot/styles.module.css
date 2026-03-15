@@ -1,0 +1,259 @@
+/* Floating toggle button */
+.floatButton {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #2e8555;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.floatButton:hover {
+  transform: scale(1.1);
+  background-color: #29784c;
+}
+
+[data-theme='dark'] .floatButton {
+  background-color: #25c2a0;
+}
+
+[data-theme='dark'] .floatButton:hover {
+  background-color: #21af90;
+}
+
+/* Chat panel */
+.panel {
+  position: fixed;
+  bottom: 92px;
+  right: 24px;
+  z-index: 9999;
+  width: 360px;
+  height: 500px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+[data-theme='dark'] .panel {
+  background: #1e2125;
+  border: 1px solid #333;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: #2e8555;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .header {
+  background-color: #25c2a0;
+  color: #000;
+}
+
+.header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 4px;
+  opacity: 0.85;
+}
+
+.header button:hover {
+  opacity: 1;
+}
+
+/* Messages area */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emptyState {
+  color: #888;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: auto;
+  padding: 16px;
+}
+
+/* Chat bubbles */
+.userMsg,
+.assistantMsg {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.userMsg {
+  background-color: #2e8555;
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.assistantMsg {
+  background-color: #f0f0f0;
+  color: #222;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+[data-theme='dark'] .assistantMsg {
+  background-color: #2d3139;
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] .userMsg {
+  background-color: #25c2a0;
+  color: #000;
+}
+
+/* Loading animation */
+.loading {
+  display: inline-block;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  animation: blink 1.2s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* Input row */
+.inputRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .inputRow {
+  border-top-color: #333;
+}
+
+.textarea {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+  resize: none;
+  font-family: inherit;
+  line-height: 1.4;
+  background: #fff;
+  color: #222;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.textarea:focus {
+  border-color: #2e8555;
+}
+
+[data-theme='dark'] .textarea {
+  background: #2d3139;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+[data-theme='dark'] .textarea:focus {
+  border-color: #25c2a0;
+}
+
+.sendButton {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #2e8555;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.15s, opacity 0.15s;
+}
+
+.sendButton:hover:not(:disabled) {
+  background-color: #29784c;
+}
+
+.sendButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+[data-theme='dark'] .sendButton {
+  background-color: #25c2a0;
+  color: #000;
+}
+
+[data-theme='dark'] .sendButton:hover:not(:disabled) {
+  background-color: #21af90;
+}
+
+/* Text selection tooltip */
+.selectionTooltip {
+  position: fixed;
+  z-index: 10000;
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.1s;
+}
+
+.selectionTooltip:hover {
+  background: #2e8555;
+}
+
+[data-theme='dark'] .selectionTooltip {
+  background: #25c2a0;
+  color: #000;
+}
+
+[data-theme='dark'] .selectionTooltip:hover {
+  background: #29d5b0;
+}
