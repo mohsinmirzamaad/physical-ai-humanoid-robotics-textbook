@@ -54,53 +54,60 @@ export default function SignupPage() {
   const inputStyle: React.CSSProperties = {
     display: 'block', width: '100%', marginTop: 4,
     padding: '8px 10px', borderRadius: 4, border: '1px solid #ccc',
+    fontSize: '0.95rem', boxSizing: 'border-box',
   };
 
   return (
     <Layout title="Sign Up" description="Create your account">
       <div style={{ maxWidth: 440, margin: '80px auto', padding: '0 16px' }}>
-        <h1>Sign Up</h1>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <label>
-            Name
-            <input type="text" value={name} onChange={e => setName(e.target.value)} required style={inputStyle} />
-          </label>
-          <label>
-            Email
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} />
-          </label>
-          <label>
-            Password
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required style={inputStyle} />
-          </label>
-          <label>
-            Software Experience Level
-            <select value={softwareLevel} onChange={e => setSoftwareLevel(e.target.value)} style={inputStyle}>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </select>
-          </label>
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <input type="checkbox" checked={jetsonAccess} onChange={e => setJetsonAccess(e.target.checked)} />
-            I have access to an NVIDIA Jetson device
-          </label>
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <input type="checkbox" checked={rtxGpuAccess} onChange={e => setRtxGpuAccess(e.target.checked)} />
-            I have access to an NVIDIA RTX GPU
-          </label>
-          {error && <p style={{ color: 'red', margin: 0 }}>{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            style={{ padding: '10px', borderRadius: 4, background: 'var(--ifm-color-primary)', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}
-          >
-            {loading ? 'Creating account…' : 'Create Account'}
-          </button>
-        </form>
-        <p style={{ marginTop: 16 }}>
-          Already have an account? <a href="/physical-ai-humanoid-robotics-textbook/login">Sign in</a>
-        </p>
+        <div style={{ background: 'var(--ifm-card-background-color, #fff)', padding: '32px', borderRadius: 12, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', border: '1px solid var(--ifm-color-emphasis-200)' }}>
+          <h1 style={{ margin: '0 0 4px' }}>Sign Up</h1>
+          <p style={{ margin: '0 0 20px', color: 'var(--ifm-color-secondary-darkest)', fontSize: '0.95rem' }}>Create your account to get a personalized learning experience</p>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <label>
+              Name
+              <input type="text" value={name} onChange={e => setName(e.target.value)} required style={inputStyle} />
+            </label>
+            <label>
+              Email
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} />
+            </label>
+            <label>
+              Password
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)} required style={inputStyle} />
+            </label>
+            <label>
+              Software Experience Level
+              <select value={softwareLevel} onChange={e => setSoftwareLevel(e.target.value)} style={inputStyle}>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </label>
+            <div>
+              <p style={{ fontSize: 13, fontWeight: 600, margin: '4px 0 6px', color: 'var(--ifm-color-secondary-darkest)' }}>Hardware Access (optional)</p>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <input type="checkbox" checked={jetsonAccess} onChange={e => setJetsonAccess(e.target.checked)} />
+                I have access to an NVIDIA Jetson device
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
+                <input type="checkbox" checked={rtxGpuAccess} onChange={e => setRtxGpuAccess(e.target.checked)} />
+                I have access to an NVIDIA RTX GPU
+              </label>
+            </div>
+            {error && <p style={{ color: 'red', margin: 0 }}>{error}</p>}
+            <button
+              type="submit"
+              disabled={loading}
+              style={{ padding: '11px', borderRadius: 4, background: 'var(--ifm-color-primary)', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '1rem', letterSpacing: '0.3px' }}
+            >
+              {loading ? 'Creating account…' : 'Create Account'}
+            </button>
+          </form>
+          <p style={{ marginTop: 16, marginBottom: 0 }}>
+            Already have an account? <a href="/physical-ai-humanoid-robotics-textbook/login">Sign in</a>
+          </p>
+        </div>
       </div>
     </Layout>
   );

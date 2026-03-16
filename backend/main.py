@@ -6,8 +6,9 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from jose import JWTError, jwt
-from passlib.context import CryptContext
+import bcrypt
+import jwt as pyjwt
+from jwt.exceptions import InvalidTokenError
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
 from qdrant_client.models import Filter, FieldCondition, MatchValue
@@ -37,7 +38,12 @@ JWT_SECRET = os.environ["JWT_SECRET"]
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_DAYS = 7
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+def verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode(), hashed.encode())
+
 bearer_scheme = HTTPBearer(auto_error=False)
 
 textbook_agent = Agent(
@@ -97,13 +103,13 @@ def create_token(user_id: str, email: str, name: str, software_level: str,
         "rtx_gpu_access": rtx_gpu_access,
         "exp": expire,
     }
-    return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return pyjwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
 def decode_token(token: str) -> dict:
     try:
-        return jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-    except JWTError:
+        return pyjwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+    except InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
 
@@ -175,7 +181,7 @@ async def chat(req: ChatRequest):
 
 @app.post("/auth/signup")
 def signup(req: SignupRequest):
-    hashed = pwd_context.hash(req.password)
+    hashed = hash_password(req.password)
     conn = get_db_conn()
     try:
         with conn.cursor() as cur:
@@ -213,7 +219,7 @@ def signin(req: SigninRequest):
     finally:
         conn.close()
 
-    if not row or not pwd_context.verify(req.password, row[2]):
+    if not row or not verify_password(req.password, row[2]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
     user_id, name, _, software_level, jetson_access, rtx_gpu_access = row

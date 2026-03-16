@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useLocation } from '@docusaurus/router';
 import { useAuth } from '@site/src/context/AuthContext';
-import Link from '@docusaurus/Link';
 
 interface PersonalizeButtonProps {
   chapterSlug: string;
@@ -19,9 +18,18 @@ export default function PersonalizeButton({ chapterSlug }: PersonalizeButtonProp
 
   if (!user) {
     return (
-      <Link to="/login" style={{ fontSize: 13, color: 'var(--ifm-color-primary)' }}>
+      <a href="/login" style={{
+        display: 'inline-block',
+        padding: '6px 14px',
+        borderRadius: 4,
+        background: '#43A047',
+        color: '#fff',
+        fontWeight: 600,
+        fontSize: 13,
+        textDecoration: 'none',
+      }}>
         Sign in to personalize
-      </Link>
+      </a>
     );
   }
 

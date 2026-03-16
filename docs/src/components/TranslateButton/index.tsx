@@ -56,12 +56,14 @@ export default function TranslateButton() {
         style={{
           padding: '6px 14px',
           borderRadius: 4,
-          background: translated ? '#6c757d' : 'var(--ifm-color-secondary)',
+          background: translated ? '#0097A7' : '#00BCD4',
           color: '#fff',
           border: 'none',
           cursor: 'pointer',
           fontWeight: 600,
           fontSize: 13,
+          padding: '7px 16px',
+          letterSpacing: '0.3px',
         }}
       >
         {loading ? 'Translating…' : translated ? 'Show Original' : 'اردو میں پڑھیں'}
