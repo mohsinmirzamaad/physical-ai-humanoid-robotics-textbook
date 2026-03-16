@@ -61,7 +61,8 @@ textbook_agent = Agent(
 # ---------------------------------------------------------------------------
 
 def get_db_conn():
-    return psycopg2.connect(os.environ["NEON_DATABASE_URL"])
+    url = os.environ["NEON_DATABASE_URL"].replace("postgres://", "postgresql://", 1)
+    return psycopg2.connect(url)
 
 
 def ensure_users_table():
@@ -85,7 +86,10 @@ def ensure_users_table():
         conn.close()
 
 
-ensure_users_table()
+try:
+    ensure_users_table()
+except Exception as e:
+    print(f"WARNING: could not ensure users table: {e}")
 
 # ---------------------------------------------------------------------------
 # JWT helpers
