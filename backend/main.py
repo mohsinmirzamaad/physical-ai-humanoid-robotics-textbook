@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
 from openai import OpenAI
@@ -9,6 +10,13 @@ from agents import Agent, Runner
 load_dotenv()
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://mohsinmirzamaad.github.io"],
+    allow_methods=["POST", "GET"],
+    allow_headers=["Content-Type"],
+)
 
 qdrant = QdrantClient(
     url=os.environ["QDRANT_URL"],
