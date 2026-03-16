@@ -97,10 +97,10 @@ export default function Chatbot(): React.ReactElement {
 
   const handleTooltipClick = () => {
     if (!tooltip) return;
+    const framed = `Tell me more about this excerpt:\n\n"${tooltip.text}"`;
     setOpen(true);
-    setInput(tooltip.text);
     setTooltip(null);
-    setTimeout(() => inputRef.current?.focus(), 100);
+    setTimeout(() => sendMessage(framed), 50);
   };
 
   return (

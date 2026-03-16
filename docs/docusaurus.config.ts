@@ -29,6 +29,7 @@ const config: Config = {
 
   customFields: {
     chatbotApiUrl: process.env.CHATBOT_API_URL ?? 'https://physical-ai-humanoid-robotics-textbook-production-95f1.up.railway.app/chat',
+    backendApiUrl: process.env.BACKEND_API_URL ?? 'https://physical-ai-humanoid-robotics-textbook-production-95f1.up.railway.app',
   },
 
   onBrokenLinks: 'throw',
@@ -102,6 +103,8 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
         },
+        { to: '/login', label: 'Login', position: 'right' },
+        { to: '/signup', label: 'Sign Up', position: 'right' },
       ],
     },
     footer: {

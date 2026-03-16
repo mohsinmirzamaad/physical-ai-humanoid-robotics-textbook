@@ -4,7 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client.models import Distance, VectorParams, PointStruct, PayloadSchemaType
 
 load_dotenv()
 
@@ -59,8 +59,9 @@ def main():
         text = strip_mdx_imports(text)
         chunks = split_chunks(text)
         rel = str(path.relative_to(DOCS_DIR))
+        chapter_slug = Path(rel).parts[0] if Path(rel).parts else ""
         for i, chunk in enumerate(chunks):
-            all_chunks.append({"source_file": rel, "chunk_index": i, "text": chunk})
+            all_chunks.append({"source_file": rel, "chunk_index": i, "chapter_slug": chapter_slug, "text": chunk})
 
     print(f"Total chunks: {len(all_chunks)}")
 
@@ -86,6 +87,12 @@ def main():
         qdrant.upsert(collection_name=COLLECTION, points=points[start : start + batch_size])
         print(f"  Upserted {min(start + batch_size, len(points))}/{len(points)}")
 
+    qdrant.create_payload_index(
+        collection_name=COLLECTION,
+        field_name="chapter_slug",
+        field_schema=PayloadSchemaType.KEYWORD,
+    )
+    print("Created payload index on chapter_slug")
     print("Done")
 
 
